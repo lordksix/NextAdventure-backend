@@ -1,0 +1,36 @@
+import { PassportStrategy } from '@nestjs/passport';
+import { Profile, Strategy } from 'passport-facebook';
+import { Injectable } from '@nestjs/common';
+import { AuthenticationService } from '../authentication.service';
+
+@Injectable()
+export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
+  constructor(private readonly authService: AuthenticationService) {
+    super({
+      clientID: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_SECRET,
+      callbackURL: process.env.FACEBOOK_CALLBACK_URL,
+      passReqToCallback: true,
+      scope: 'email',
+      profileFields: ['id', 'name', 'emails'],
+    });
+  }
+  async validate(
+    req: any,
+    _accessToken: string,
+    _refreshToken: string,
+    profile: Profile,
+    done: (err: any, user: any, info?: any) => void,
+  ): Promise<any> {
+    console.log(profile._json);
+    const { name, emails, id } = profile;
+    const user = {
+      providerId: id,
+      email: emails[0].value,
+      firstName: name.givenName,
+      lastName: name.familyName,
+      provider: 'facebook',
+    };
+    done(null, user);
+  }
+}
