@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AuthenticationService {
-  googleLogin(req) {
+  authLogin(req, provider: string) {
     if (!req.user) {
-      return 'No user from google';
+      return `No user from ${provider}`;
     }
 
     return {
-      message: 'User information from google',
+      message: `User information from from ${provider}`,
       user: req.user,
     };
   }
