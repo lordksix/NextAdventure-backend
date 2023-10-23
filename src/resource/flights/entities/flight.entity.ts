@@ -1,5 +1,5 @@
-import { City } from 'src/resource/cities/entities/city.entity';
-import { User } from 'src/resource/users/entities/user.entity';
+import { City } from '../../cities/entities/city.entity';
+import { User } from '../../users/entities/user.entity';
 import {
   Column,
   Entity,
@@ -16,23 +16,20 @@ export class Flight {
   @ManyToOne(() => City, (city) => city.departureFlights)
   departureCity: City;
 
-  @Column()
-  departureCityId: number;
-
   @Column({ type: 'timestamptz' })
   departureTime: Date;
 
   @ManyToOne(() => City, (city) => city.arrivalFlights)
   arrivalCity: City;
 
-  @Column()
-  arrivalCityId: number;
-
   @Column({ type: 'timestamptz' })
   arrivalTime: Date;
 
   @Column({ type: 'integer' })
   code: number;
+
+  @Column({ type: 'varchar', length: 2 })
+  airline: string;
 
   @ManyToMany(() => User, (user) => user.flights)
   users: User[];

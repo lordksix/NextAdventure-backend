@@ -1,4 +1,4 @@
-import { Flight } from 'src/resource/flights/entities/flight.entity';
+import { Flight } from '../../flights/entities/flight.entity';
 import {
   Column,
   Entity,

@@ -1,5 +1,5 @@
-import { Country } from 'src/resource/countries/entities/country.entity';
-import { Flight } from 'src/resource/flights/entities/flight.entity';
+import { Country } from '../../countries/entities/country.entity';
+import { Flight } from '../../flights/entities/flight.entity';
 import {
   Column,
   Entity,
@@ -21,9 +21,6 @@ export class City {
 
   @ManyToOne(() => Country, (country) => country.cities)
   country: Country;
-
-  @Column()
-  countryId: number;
 
   @OneToMany(() => Flight, (flight) => flight.departureCity)
   departureFlights: Flight[];
