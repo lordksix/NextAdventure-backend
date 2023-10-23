@@ -6,6 +6,8 @@ import { DecryptTokenMiddleware } from './middleware/decrypt-token.middleware';
 import { DbModule } from './db/db.module';
 import { UsersModule } from './resource/users/users.module';
 import { FlightsModule } from './resource/flights/flights.module';
+import { CitiesModule } from './resource/cities/cities.module';
+import { CountriesModule } from './resource/countries/countries.module';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { FlightsModule } from './resource/flights/flights.module';
     DbModule,
     UsersModule,
     FlightsModule,
+    CitiesModule,
+    CountriesModule,
   ],
   controllers: [],
   providers: [],
