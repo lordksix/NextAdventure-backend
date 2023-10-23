@@ -1,5 +1,11 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Country } from './Country';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Country, Flight } from '.';
 
 @Entity({ name: 'cities' })
 export class City {
@@ -17,4 +23,10 @@ export class City {
 
   @Column()
   countryId: number;
+
+  @OneToMany(() => Flight, (flight) => flight.departurecity)
+  departureFlights: Flight[];
+
+  @OneToMany(() => Flight, (flight) => flight.arrivalcity)
+  arrivalFlights: Flight[];
 }

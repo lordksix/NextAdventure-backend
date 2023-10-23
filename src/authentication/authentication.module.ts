@@ -4,10 +4,10 @@ import { AuthenticationController } from './authentication.controller';
 import { GoogleStrategy } from './strategy/google.strategy';
 import { FacebookStrategy } from './strategy/facebook.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/typeorm/entities/User';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthenticationRepository } from './repository/authentication.repository';
 import { SessionSerializer } from './utils/serializer';
+import entities from 'src/typeorm/entities';
 
 const jwtPresets = [
   JwtModule.registerAsync({
@@ -25,7 +25,7 @@ const jwtPresets = [
 ];
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), ...jwtPresets],
+  imports: [TypeOrmModule.forFeature(entities), ...jwtPresets],
   providers: [
     AuthenticationService,
     GoogleStrategy,
