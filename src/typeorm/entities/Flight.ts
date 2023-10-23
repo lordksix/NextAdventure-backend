@@ -1,5 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { City } from '.';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { City, User } from '.';
 
 @Entity({ name: 'flights' })
 export class Flight {
@@ -27,16 +34,16 @@ export class Flight {
   @Column({ type: 'varchar', length: 3 })
   code: string;
 
-  /*   @ManyToMany(() => User, (user) => user.reservations)
+  @ManyToMany(() => User, (user) => user.reservations)
   @JoinTable()
-  users: User[]; */
+  users: User[];
 
-  @Column({ type: 'decimal' })
+  @Column({ type: 'decimal', default: 0 })
   price: number;
 
-  @Column({ type: 'integer' })
+  @Column({ type: 'integer', default: 0 })
   totalSeats: number;
 
-  @Column({ type: 'integer' })
+  @Column({ type: 'integer', default: 0 })
   seatsAvailable: number;
 }

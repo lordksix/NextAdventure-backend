@@ -6,6 +6,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import entities from './typeorm/entities';
 import { AuthenticationController } from './authentication/authentication.controller';
 import { DecryptTokenMiddleware } from './middleware/decrypt-token.middleware';
+import { FlightModule } from './flight/flight.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -22,10 +24,13 @@ import { DecryptTokenMiddleware } from './middleware/decrypt-token.middleware';
         database: configService.get('DATABASE_PG_NAME'),
         entities: entities,
         synchronize: true,
+        autoLoadEntities: true,
       }),
       inject: [ConfigService],
     }),
     PassportModule.register({ session: true }),
+    FlightModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],

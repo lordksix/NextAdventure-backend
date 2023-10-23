@@ -1,13 +1,14 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { AuthenticationController } from './authentication.controller';
 import { GoogleStrategy } from './strategy/google.strategy';
 import { FacebookStrategy } from './strategy/facebook.strategy';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthenticationRepository } from './repository/authentication.repository';
 import { SessionSerializer } from './utils/serializer';
-import entities from 'src/typeorm/entities';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from 'src/typeorm/entities';
+import { FlightModule } from 'src/flight/flight.module';
 
 const jwtPresets = [
   JwtModule.registerAsync({
@@ -25,7 +26,11 @@ const jwtPresets = [
 ];
 
 @Module({
-  imports: [TypeOrmModule.forFeature(entities), ...jwtPresets],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    forwardRef(() => FlightModule),
+    ...jwtPresets,
+  ],
   providers: [
     AuthenticationService,
     GoogleStrategy,
