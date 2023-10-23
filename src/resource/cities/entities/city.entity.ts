@@ -1,3 +1,5 @@
+import { Country } from 'src/resource/countries/entities/country.entity';
+import { Flight } from 'src/resource/flights/entities/flight.entity';
 import {
   Column,
   Entity,
@@ -5,7 +7,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Country, Flight } from '.';
 
 @Entity({ name: 'cities' })
 export class City {
@@ -24,9 +25,9 @@ export class City {
   @Column()
   countryId: number;
 
-  @OneToMany(() => Flight, (flight) => flight.departurecity)
+  @OneToMany(() => Flight, (flight) => flight.departureCity)
   departureFlights: Flight[];
 
-  @OneToMany(() => Flight, (flight) => flight.arrivalcity)
+  @OneToMany(() => Flight, (flight) => flight.arrivalCity)
   arrivalFlights: Flight[];
 }

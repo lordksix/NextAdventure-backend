@@ -7,8 +7,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthenticationRepository } from './repository/authentication.repository';
 import { SessionSerializer } from './utils/serializer';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/typeorm/entities';
-import { FlightModule } from 'src/flight/flight.module';
+import { FlightsModule } from 'src/resource/flights/flights.module';
+import { User } from 'src/resource/users/entities/user.entity';
 
 const jwtPresets = [
   JwtModule.registerAsync({
@@ -28,7 +28,7 @@ const jwtPresets = [
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
-    forwardRef(() => FlightModule),
+    forwardRef(() => FlightsModule),
     ...jwtPresets,
   ],
   providers: [

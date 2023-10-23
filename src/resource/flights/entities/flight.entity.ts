@@ -1,12 +1,12 @@
+import { City } from 'src/resource/cities/entities/city.entity';
+import { User } from 'src/resource/users/entities/user.entity';
 import {
   Column,
   Entity,
-  JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { City, User } from '.';
 
 @Entity({ name: 'flights' })
 export class Flight {
@@ -14,28 +14,27 @@ export class Flight {
   id: number;
 
   @ManyToOne(() => City, (city) => city.departureFlights)
-  departurecity: string;
+  departureCity: City;
 
   @Column()
-  departurecityId: number;
+  departureCityId: number;
 
   @Column({ type: 'timestamptz' })
   departureTime: Date;
 
   @ManyToOne(() => City, (city) => city.arrivalFlights)
-  arrivalcity: string;
+  arrivalCity: City;
 
   @Column()
-  arrivalcityId: number;
+  arrivalCityId: number;
 
   @Column({ type: 'timestamptz' })
   arrivalTime: Date;
 
-  @Column({ type: 'varchar', length: 3 })
-  code: string;
+  @Column({ type: 'integer' })
+  code: number;
 
-  @ManyToMany(() => User, (user) => user.reservations)
-  @JoinTable()
+  @ManyToMany(() => User, (user) => user.flights)
   users: User[];
 
   @Column({ type: 'decimal', default: 0 })

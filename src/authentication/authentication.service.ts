@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/typeorm/entities/User';
 import {
   EntryptedAccessTokens,
   UserDetails,
@@ -10,6 +9,7 @@ import { AuthenticationRepository } from './repository/authentication.repository
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotFoundResponse } from 'src/utils/response/notFound.response';
+import { User } from 'src/resource/users/entities/user.entity';
 
 @Injectable()
 export class AuthenticationService {

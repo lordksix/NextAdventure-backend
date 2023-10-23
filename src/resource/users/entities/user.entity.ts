@@ -1,5 +1,11 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Flight } from '.';
+import { Flight } from 'src/resource/flights/entities/flight.entity';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'users' })
 export class User {
@@ -25,5 +31,6 @@ export class User {
   refreshToken: string;
 
   @ManyToMany(() => Flight, (flight) => flight.users)
-  reservations: Flight[];
+  @JoinTable()
+  flights: Flight[];
 }
