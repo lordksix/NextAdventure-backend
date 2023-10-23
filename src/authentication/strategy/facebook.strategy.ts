@@ -1,11 +1,13 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Profile, Strategy } from 'passport-facebook';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { AuthenticationService } from '../authentication.service';
 
 @Injectable()
 export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
-  constructor(private readonly authService: AuthenticationService) {
+  constructor(
+    @Inject('AUTH_SERVICE') private readonly authService: AuthenticationService,
+  ) {
     super({
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_SECRET,
@@ -20,17 +22,15 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
     _accessToken: string,
     _refreshToken: string,
     profile: Profile,
-    done: (err: any, user: any, info?: any) => void,
   ): Promise<any> {
-    console.log(profile._json);
     const { name, emails, id } = profile;
-    const user = {
+    const tokens = await this.authService.validateUser({
       providerId: id,
       email: emails[0].value,
       firstName: name.givenName,
       lastName: name.familyName,
-      provider: 'facebook',
-    };
-    done(null, user);
+      provider: 'google',
+    });
+    return tokens || null;
   }
 }
