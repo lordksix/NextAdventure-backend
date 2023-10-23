@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Flight } from './Flight';
 
 @Entity({ name: 'users' })
 export class User {
@@ -22,4 +23,7 @@ export class User {
 
   @Column({ type: 'varchar', length: 512, default: '' })
   refreshToken: string;
+
+  @ManyToMany(() => Flight, (flight) => flight.users)
+  reservations: Flight[];
 }

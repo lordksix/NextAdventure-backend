@@ -29,7 +29,7 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
       email: emails[0].value,
       firstName: name.givenName,
       lastName: name.familyName,
-      provider: 'google',
+      provider: 'facebook',
     });
     return tokens || null;
   }
