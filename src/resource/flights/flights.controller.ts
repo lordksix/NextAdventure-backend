@@ -1,28 +1,15 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Patch, Param } from '@nestjs/common';
 import { FlightsService } from './flights.service';
-import { CreateFlightDto } from './dto/create-flight.dto';
-import { UpdateFlightDto } from './dto/update-flight.dto';
-
 @Controller('flights')
 export class FlightsController {
   constructor(private readonly flightsService: FlightsService) {}
 
-  @Post()
-  create(@Body() createFlightDto: CreateFlightDto) {
-    return this.flightsService.create(createFlightDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.flightsService.findAll();
+  @Get(':arrivalId/:depatureId')
+  findAll(
+    @Param('arrivalId') arrivalId: string,
+    @Param('depatureId') depatureId: string,
+  ) {
+    return this.flightsService.findAll(+arrivalId, +depatureId);
   }
 
   @Get(':id')
@@ -30,13 +17,8 @@ export class FlightsController {
     return this.flightsService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFlightDto: UpdateFlightDto) {
-    return this.flightsService.update(+id, updateFlightDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.flightsService.remove(+id);
+  @Patch('book/:id/:refreshToken')
+  update(@Param('id') id: string, @Param('refreshToken') refreshToken: string) {
+    return this.flightsService.update(+id, refreshToken);
   }
 }
