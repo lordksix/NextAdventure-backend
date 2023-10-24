@@ -32,17 +32,21 @@ export class FlightsService {
   }
 
   async update(id: number, refreshToken: string) {
-    try{
+    try {
       const flight = await this.flightRepository.findOneBy({ id });
+      if (flight.seatsAvailable < 1)
+        return `No seats available for flight #${id}`;
       const user = await this.userRepository.findOneBy({ refreshToken });
-       await this.flightRepository.update(
+      await this.flightRepository.update(
         { id },
-        { users: [...flight.users, user] },
+        {
+          users: [...flight.users, user],
+          seatsAvailable: flight.seatsAvailable - 1,
+        },
       );
       return `Boooking completed for flight #${id}`;
     } catch {
       return `Boooking COULDN'T BE completed for flight #${id}`;
     }
-
   }
 }
