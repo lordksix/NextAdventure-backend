@@ -6,7 +6,7 @@ export class Country {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column({ type: 'varchar', length: 128 })
   name: string;
 
   @Column({ type: 'varchar', length: 3 })
