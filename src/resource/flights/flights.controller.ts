@@ -1,15 +1,16 @@
-import { Controller, Get, Patch, Param } from '@nestjs/common';
+import { Controller, Get, Patch, Param, Body } from '@nestjs/common';
 import { FlightsService } from './flights.service';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 @Controller('flights')
 export class FlightsController {
   constructor(private readonly flightsService: FlightsService) {}
 
-  @Get(':arrivalId/:depatureId')
+  @Get(':arrivalId/:departureId')
   findAll(
     @Param('arrivalId') arrivalId: string,
-    @Param('depatureId') depatureId: string,
+    @Param('departureId') departureId: string,
   ) {
-    return this.flightsService.findAll(+arrivalId, +depatureId);
+    return this.flightsService.findAll(+arrivalId, +departureId);
   }
 
   @Get(':id')
@@ -18,7 +19,11 @@ export class FlightsController {
   }
 
   @Patch('book/:id/:refreshToken')
-  update(@Param('id') id: string, @Param('refreshToken') refreshToken: string) {
-    return this.flightsService.update(+id, refreshToken);
+  update(
+    @Param('id') id: string,
+    @Param('refreshToken') refreshToken: string,
+    @Body() registerUserDto: CreateUserDto,
+  ) {
+    return this.flightsService.update(+id, refreshToken, registerUserDto);
   }
 }
