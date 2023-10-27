@@ -35,16 +35,17 @@ export class FlightsService {
 
   async update(
     id: number,
-    _refreshToken: string,
+    refreshToken: string,
     registerUserDto: CreateUserDto,
   ) {
     try {
       const flight = await this.flightRepository.findOneBy({ id });
       const { email, firstName, lastName } = registerUserDto;
-      console.log('first');
+      console.log(flight);
       if (flight.seatsAvailable < 1)
         return `No seats available for flight #${id}`;
       /* const user = await this.userRepository.findOneBy({ refreshToken }); */
+      console.log(refreshToken);
       const user = this.userRepository.create({
         email,
         firstName,
@@ -52,15 +53,12 @@ export class FlightsService {
         provider: 'local',
         providerId: randomUUID(),
       });
-      console.log(user);
-      await this.flightRepository.update(
-        { id },
-        {
-          users: [...flight.users, user],
-          seatsAvailable: flight.seatsAvailable - 1,
-        },
-      );
-      console.log('third');
+      const users = flight.users ? [...flight.users, user] : [user];
+      console.log(users);
+      const newSD = await this.flightRepository.update(id, {
+        seatsAvailable: --flight.seatsAvailable,
+      });
+      console.log(newSD);
       return `Boooking completed for flight #${id}`;
     } catch {
       return `Boooking COULDN'T BE completed for flight #${id}`;
