@@ -4,6 +4,8 @@ import { Repository } from 'typeorm';
 import { Flight } from './entities/flight.entity';
 import { City } from '../cities/entities/city.entity';
 import { User } from '../users/entities/user.entity';
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class FlightsService {
@@ -16,11 +18,11 @@ export class FlightsService {
     private userRepository: Repository<User>,
   ) {}
 
-  async findAll(arrivalId: number, depatureId: number) {
+  async findAll(arrivalId: number, departureId: number) {
     const flights = await this.flightRepository.find({
       where: {
         arrivalCity: await this.cityRepository.findOneBy({ id: arrivalId }),
-        departureCity: await this.cityRepository.findOneBy({ id: depatureId }),
+        departureCity: await this.cityRepository.findOneBy({ id: departureId }),
       },
     });
     return { data: flights };
@@ -31,19 +33,32 @@ export class FlightsService {
     return { data: [flight] };
   }
 
-  async update(id: number, refreshToken: string) {
+  async update(
+    id: number,
+    refreshToken: string,
+    registerUserDto: CreateUserDto,
+  ) {
     try {
       const flight = await this.flightRepository.findOneBy({ id });
+      const { email, firstName, lastName } = registerUserDto;
+      console.log(flight);
       if (flight.seatsAvailable < 1)
         return `No seats available for flight #${id}`;
-      const user = await this.userRepository.findOneBy({ refreshToken });
-      await this.flightRepository.update(
-        { id },
-        {
-          users: [...flight.users, user],
-          seatsAvailable: flight.seatsAvailable - 1,
-        },
-      );
+      /* const user = await this.userRepository.findOneBy({ refreshToken }); */
+      console.log(refreshToken);
+      const user = this.userRepository.create({
+        email,
+        firstName,
+        lastName,
+        provider: 'local',
+        providerId: randomUUID(),
+      });
+      const users = flight.users ? [...flight.users, user] : [user];
+      console.log(users);
+      const newSD = await this.flightRepository.update(id, {
+        seatsAvailable: --flight.seatsAvailable,
+      });
+      console.log(newSD);
       return `Boooking completed for flight #${id}`;
     } catch {
       return `Boooking COULDN'T BE completed for flight #${id}`;

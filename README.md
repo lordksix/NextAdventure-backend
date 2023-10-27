@@ -74,7 +74,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-> [Live Demo](https://dev--jovial-longma-dea964.netlify.app/)
+> The backend is being deploy to  [Live Demo](https://next-adventure-lordksix.onrender.com).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -119,6 +119,14 @@ To install dependencies, the following command must be run in the terminal:
   cd NextAdventure-backend
   npm i
 ```
+
+Run:
+
+```bash
+cp .env.example .env
+```
+
+Update DATABASE_PG_PASSWORD and SESSION_SECRET in .env file
 
 To create database, migrate schema and implement initial database entries
 
