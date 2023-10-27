@@ -13,7 +13,7 @@ export default class CitySeeder implements Seeder {
     repository.forEach(async (country) => {
       const cityFactory = factoryManager.get(City);
       // save 5 factory generated entities, to the database
-      await cityFactory.saveMany(3, { country });
+      await cityFactory.saveMany(2, { country });
     });
   }
 }

@@ -10,6 +10,6 @@ export default class CountrySeeder implements Seeder {
     await dataSource.query('TRUNCATE "countries" RESTART IDENTITY CASCADE;');
     const countryFactory = factoryManager.get(Country);
     // save 5 factory generated entities, to the database
-    await countryFactory.saveMany(10);
+    await countryFactory.saveMany(3);
   }
 }

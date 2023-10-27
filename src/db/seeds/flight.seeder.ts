@@ -14,7 +14,7 @@ export default class FlightSeeder implements Seeder {
     for (let index = 0; index < cities.length; index++) {
       for (let index1 = 1; index1 < cities.length; index1++) {
         if (index !== index1)
-          await flightFactory.saveMany(Math.ceil(Math.random() * 10), {
+          await flightFactory.saveMany(Math.ceil(Math.random() * 3), {
             arrivalCity: cities[index],
             departureCity: cities[index1],
           });
