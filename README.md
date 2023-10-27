@@ -126,7 +126,7 @@ Run:
 cp .env.example .env
 ```
 
-Update DATABASE_PG_PASSWORD in .env file
+Update DATABASE_PG_PASSWORD and SESSION_SECRET in .env file
 
 To create database, migrate schema and implement initial database entries
 
