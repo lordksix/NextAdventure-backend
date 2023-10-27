@@ -20,8 +20,6 @@
     "db:create": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js db:create -d ./src/db/data-source.ts --initialDatabase postgres",
     "db:drop": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js db:drop -d ./src/db/data-source.ts --initialDatabase postgres",
     "seed": " cross-env DIST=true  ts-node ./node_modules/typeorm-extension/dist/cli/index.js seed -d ./src/db/data-source.ts",
-    "reseed": "npm run build && npm run db:drop && npm run db:create && npm run seed",
-    "seed:nobuild": "npm run db:drop && npm run db:create && npm run seed",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",

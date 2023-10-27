@@ -5,16 +5,16 @@ export class CreateTables1698079869975 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "users" ("id" BIGSERIAL NOT NULL, "email" character varying(50) NOT NULL, "firstName" character varying(50) NOT NULL, "lastName" character varying(50) NOT NULL, "provider" character varying(50) NOT NULL, "providerId" character varying(100) NOT NULL, "refreshToken" character varying(512) NOT NULL DEFAULT '', CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "users" ("id" BIGSERIAL NOT NULL, "email" character varying(128) NOT NULL, "firstName" character varying(128) NOT NULL, "lastName" character varying(128) NOT NULL, "provider" character varying(128) NOT NULL, "providerId" character varying(100) NOT NULL, "refreshToken" character varying(512) NOT NULL DEFAULT '', CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE TABLE "flights" ("id" BIGSERIAL NOT NULL, "departureCityId" bigint NOT NULL, "departureTime" TIMESTAMP WITH TIME ZONE NOT NULL, "arrivalCityId" bigint NOT NULL, "arrivalTime" TIMESTAMP WITH TIME ZONE NOT NULL, "code" integer NOT NULL, "price" numeric NOT NULL DEFAULT '0', "totalSeats" integer NOT NULL DEFAULT '0', "seatsAvailable" integer NOT NULL DEFAULT '0', CONSTRAINT "PK_c614ef3382fdd70b6d6c2c8d8dd" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "cities" ("id" BIGSERIAL NOT NULL, "name" character varying(50) NOT NULL, "code" character varying(3) NOT NULL, "countryId" bigint NOT NULL, CONSTRAINT "PK_4762ffb6e5d198cfec5606bc11e" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "cities" ("id" BIGSERIAL NOT NULL, "name" character varying(128) NOT NULL, "code" character varying(3) NOT NULL, "countryId" bigint NOT NULL, CONSTRAINT "PK_4762ffb6e5d198cfec5606bc11e" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "countries" ("id" BIGSERIAL NOT NULL, "name" character varying(50) NOT NULL, "code" character varying(3) NOT NULL, CONSTRAINT "PK_b2d7006793e8697ab3ae2deff18" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "countries" ("id" BIGSERIAL NOT NULL, "name" character varying(128) NOT NULL, "code" character varying(3) NOT NULL, CONSTRAINT "PK_b2d7006793e8697ab3ae2deff18" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE TABLE "users_flights_flights" ("usersId" bigint NOT NULL, "flightsId" bigint NOT NULL, CONSTRAINT "PK_4396001a58012bc3cfc5ddc1596" PRIMARY KEY ("usersId", "flightsId"))`,
