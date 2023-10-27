@@ -8,7 +8,7 @@
     <img src="./assets/Database-ERD-Next_Adventure_App.png" alt="ERD" width="640"  height="auto" margin="auto"/>
 </div>
 
-<h1 align="center"><b>DocConnect</b></h3>
+<h1 align="center"><b>Next Adventure App</b></h3>
 
 # 📗 Table of Contents
 
@@ -162,8 +162,8 @@ No tests implemented
 
 Future changes:
 
-- Implement loca user and authentication.
-- Improve security using JWT.
+- Finish implementing JWT
+- Finish local, Google and Facebook login
 - Implement testing
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
