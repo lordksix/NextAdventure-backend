@@ -17,7 +17,7 @@ export const dataSourceOptions: DataSourceOptions & SeederOptions =
         entities: ['src/resource/**/*.entity{.ts,.js}'],
         migrations: ['dist/db/migrations/*{.ts,.js}'],
         seeds: [InitSeeder],
-        poolSize: 1000,
+        poolSize: 100,
       }
     : process.env.DIST === 'false'
     ? {
@@ -30,7 +30,7 @@ export const dataSourceOptions: DataSourceOptions & SeederOptions =
         entities: ['dist/resource/**/*.entity{.ts,.js}'],
         migrations: ['dist/db/migrations/*{.ts,.js}'],
         seeds: [InitSeeder],
-        poolSize: 1000,
+        poolSize: 100,
       }
     : {
         type: 'postgres',
@@ -42,7 +42,7 @@ export const dataSourceOptions: DataSourceOptions & SeederOptions =
         entities: [join(__dirname, '**', '*.entity.{ts,js}')],
         migrations: ['dist/db/migrations/*{.ts,.js}'],
         seeds: [InitSeeder],
-        poolSize: 1000,
+        poolSize: 100,
       };
 
 export default new DataSource(dataSourceOptions);
