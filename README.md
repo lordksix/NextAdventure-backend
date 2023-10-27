@@ -86,7 +86,6 @@ In order to run this project you need:
 
 - To clone or fork this repo
 - Have Nest CLI install and Node.js
-- Ruby on Rails gem installed
 - PostgreSQL install in you computer
 - To modify this profile you will also need a text editor
 
