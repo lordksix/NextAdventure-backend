@@ -39,7 +39,7 @@ export const dataSourceOptions: DataSourceOptions & SeederOptions =
         username: process.env.DATABASE_PG_USERNAME,
         password: process.env.DATABASE_PG_PASSWORD,
         database: process.env.DATABASE_PG_NAME,
-        entities: [join(__dirname, '**', '*.entity.{ts,js}')],
+        entities: [join(__dirname, 'resource', '**', '*.entity.{ts,js}')],
         migrations: ['dist/db/migrations/*{.ts,.js}'],
         seeds: [InitSeeder],
         poolSize: 100,

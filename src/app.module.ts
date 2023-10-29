@@ -8,6 +8,7 @@ import { UsersModule } from './resource/users/users.module';
 import { FlightsModule } from './resource/flights/flights.module';
 import { CitiesModule } from './resource/cities/cities.module';
 import { CountriesModule } from './resource/countries/countries.module';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CountriesModule } from './resource/countries/countries.module';
   providers: [],
 })
 export class AppModule {
+  constructor(private dataSource: DataSource) {}
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(DecryptTokenMiddleware)

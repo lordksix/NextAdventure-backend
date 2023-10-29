@@ -4,11 +4,12 @@ import { dataSourceOptions } from './data-source';
 import { Country } from '../resource/countries/entities/country.entity';
 import { City } from '../resource/cities/entities/city.entity';
 import { Flight } from '../resource/flights/entities/flight.entity';
+import { User } from '../resource/users/entities/user.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(dataSourceOptions),
-    TypeOrmModule.forFeature([Country, City, Flight]),
+    TypeOrmModule.forFeature([Country, City, Flight, User]),
   ],
 })
 export class DbModule {}
